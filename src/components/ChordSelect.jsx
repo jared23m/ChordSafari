@@ -1,3 +1,5 @@
+import { chordRelativeRoots } from "../musicTheory";
+
 export default function ChordSelect(props){
 
     function positionList(numberOfPositions){
@@ -9,33 +11,34 @@ export default function ChordSelect(props){
         return positionList;
     }
 
-    return (
-        <div className="chordSelect">
-            <form className="chordSelectForm">
+    function renderRelativeRootFormSection(relativeRootSymbol, index){
+        return (
+            <div key={index}>
+            <p>{relativeRootSymbol}</p>
                 <label className='chordSelectLabel'>
-                        <input type="checkbox" value="I" checked={props.chords["I"].include} onChange={()=>{
+                        <input type="checkbox" value={relativeRootSymbol} checked={props.chords[relativeRootSymbol].include} onChange={()=>{
                             const currentChords = props.chords;
-                            const currentSingleChord = currentChords["I"];
+                            const currentSingleChord = currentChords[relativeRootSymbol];
                             const currentInclude = currentSingleChord.include;
-                            props.setChords({...currentChords, "I": {...currentSingleChord, include: !currentInclude}});
+                            props.setChords({...currentChords, [relativeRootSymbol]: {...currentSingleChord, include: !currentInclude}});
                         }}/>
                         Include
                 </label>
                 <label className='chordSelectLabel'>
-                        <input type="checkbox" value="I" checked={props.chords["I"].mustInclude} onChange={()=>{
+                        <input type="checkbox" value={relativeRootSymbol} checked={props.chords[relativeRootSymbol].mustInclude} onChange={()=>{
                             const currentChords = props.chords;
-                            const currentSingleChord = currentChords["I"];
+                            const currentSingleChord = currentChords[relativeRootSymbol];
                             const currentMustInclude = currentSingleChord.mustInclude;
-                            props.setChords({...currentChords, "I": {...currentSingleChord, mustInclude: !currentMustInclude}});
+                            props.setChords({...currentChords, [relativeRootSymbol]: {...currentSingleChord, mustInclude: !currentMustInclude}});
                         }}/>
                         Must Include
                 </label>
                 <label>
                 Position
-                        <select className='positionSelect' value={props.chords["I"].position} onChange={(e) => {
+                        <select className='positionSelect' value={props.chords[relativeRootSymbol].position} onChange={(e) => {
                            const currentChords = props.chords;
-                           const currentSingleChord = currentChords["I"];
-                           props.setChords({...currentChords, "I": {...currentSingleChord, position: e.target.value}});
+                           const currentSingleChord = currentChords[relativeRootSymbol];
+                           props.setChords({...currentChords, [relativeRootSymbol]: {...currentSingleChord, position: e.target.value}});
                             }}>
                             {positionList(props.numberOfChords).map((positionNumber) => {
                                 return (
@@ -46,7 +49,17 @@ export default function ChordSelect(props){
                             })}
                         </select>
                 </label>
-            </form>
-        </div>
+            </div>
+        )
+    }
+
+    return (
+        <div className="chordSelect">
+            <form className="chordSelectForm">
+                {chordRelativeRoots.map((relativeRootSymbol, index) => (
+                renderRelativeRootFormSection(relativeRootSymbol, index)
+                ))}
+        </form>
+    </div>
     )
 }

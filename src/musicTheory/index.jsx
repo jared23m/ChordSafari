@@ -10,3 +10,13 @@ export const keySigNames = ["Cmaj/Amin",
 "Amaj/F#min",
 "Bbmaj/Gmin",
 "Bmaj/G#min"];
+
+export const chordRelativeRoots = [
+    "I",
+    "ii",
+    "iii",
+    "IV",
+    "V",
+    "vi",
+    "viidim"
+]
