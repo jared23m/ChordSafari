@@ -3,7 +3,7 @@ import { keySigNames } from "../musicTheory";
 export default function KeyAndNumber(props){
     return (
         <div className='keyAndNumber'>
-        <form className="keyAndNumberForm" onSubmit={(event)=>handleAllSubmit(event, loopId)}>
+        <form className="keyAndNumberForm">
             <label>
                 Key Signature:
                         <select className='keySigSelect' value={props.keySig} onChange={(e) => {
@@ -19,10 +19,10 @@ export default function KeyAndNumber(props){
                         <select className='numberOfChordsSelect' value={props.numberOfChords} onChange={(e) => {
                             props.setNumberOfChords(e.target.value);
                             }}>
-                            <option value={1}>{"1"}</option>
-                            <option value={2}>{"2"}</option>
-                            <option value={3}>{"3"}</option>
-                            <option value={4}>{"4"}</option>
+                            <option value={1}>{1}</option>
+                            <option value={2}>{2}</option>
+                            <option value={3}>{3}</option>
+                            <option value={4}>{4}</option>
                         </select>
             </label>
         </form>
