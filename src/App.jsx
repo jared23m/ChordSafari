@@ -3,9 +3,11 @@ import ChordSelect from './components/ChordSelect'
 import ComboSelect from './components/ComboSelect'
 import ProgressionList from './components/ProgressionList'
 import { useState, useEffect} from 'react'
-import { comboCheckCreator } from './musicTheory'
+import { chordRelativeRoots, comboCheckCreator } from './musicTheory'
 
 function App() {
+
+  // initialization of all states
   const [keySig, setKeySig] = useState("Cmaj/Amin");
   const [numberOfChords, setNumberOfChords] = useState(4);
   const [chords, setChords] = useState({
@@ -19,8 +21,16 @@ function App() {
   });
   const [combos, setCombos] = useState(comboCheckCreator(4));
 
+  // when the number of chords changes, the combo checklist changes, and also the chord position values reset to 'none'
   useEffect(()=>{
     setCombos(comboCheckCreator(numberOfChords));
+    let newChords = chords;
+    chordRelativeRoots.forEach((relativeRootSymbol) => {
+        const currentChords = newChords;
+        const currentSingleChord = currentChords[relativeRootSymbol];
+        newChords = ({...currentChords, [relativeRootSymbol]: {...currentSingleChord, position: 0}});
+    });
+    setChords(newChords);
   }, [numberOfChords])
 
   return (
