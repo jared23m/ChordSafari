@@ -3,6 +3,7 @@ import ChordSelect from './components/ChordSelect'
 import ComboSelect from './components/ComboSelect'
 import ProgressionList from './components/ProgressionList'
 import { useState, useEffect} from 'react'
+import { comboCheckCreator } from './musicTheory'
 
 function App() {
   const [keySig, setKeySig] = useState("Cmaj/Amin");
@@ -16,12 +17,17 @@ function App() {
     vi: {include: true, mustInclude: false, position: 0},
     viidim: {include: true, mustInclude: false, position: 0}
   });
+  const [combos, setCombos] = useState(comboCheckCreator(4));
+
+  useEffect(()=>{
+    setCombos(comboCheckCreator(numberOfChords));
+  }, [numberOfChords])
 
   return (
     <div className='App'>
        <KeyAndNumber keySig={keySig} setKeySig={setKeySig} numberOfChords={numberOfChords} setNumberOfChords={setNumberOfChords}/>
       <ChordSelect chords={chords} setChords={setChords} numberOfChords={numberOfChords}/>
-      <ComboSelect/>
+      <ComboSelect combos={combos} setCombos={setCombos}/>
       <ProgressionList/>
     </div>
   )
