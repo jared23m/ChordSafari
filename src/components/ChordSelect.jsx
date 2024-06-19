@@ -1,7 +1,20 @@
-import { chordRelativeRoots } from "../musicTheory";
+import { useState, useEffect } from "react";
+import { chordRelativeRoots, keySigNames, keySigIndex } from "../musicTheory";
 
 export default function ChordSelect(props){
 
+    // initializes states
+    const [keySigPlacement, setKeySigPlacement] = useState(0);
+
+    // changes key sig placement integer according to key sig so it can be used in translative calculations
+    useEffect(()=>{
+        const placement = keySigNames.findIndex((name)=>{
+            return name == props.keySig;
+        });
+        setKeySigPlacement(placement);
+    }, [props.keySig])
+
+    // creates numerical position list for position dropdown
     function positionList(numberOfPositions){
         const positionList = [];
         for (let i = 0; i <= numberOfPositions; i++){
@@ -12,9 +25,12 @@ export default function ChordSelect(props){
     }
 
     function renderRelativeRootFormSection(relativeRootSymbol, index){
+
+        const absoluteChordSymbol = keySigIndex[keySigPlacement][index];
+
         return (
             <div key={index}>
-            <p>{relativeRootSymbol}</p>
+            <p>{`${relativeRootSymbol} (${absoluteChordSymbol})`}</p>
                 <label className='chordSelectLabel'>
                         <input type="checkbox" value={relativeRootSymbol} checked={props.chords[relativeRootSymbol].include} onChange={()=>{
                             const currentChords = props.chords;

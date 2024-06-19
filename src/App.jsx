@@ -36,7 +36,7 @@ function App() {
   return (
     <div className='App'>
        <KeyAndNumber keySig={keySig} setKeySig={setKeySig} numberOfChords={numberOfChords} setNumberOfChords={setNumberOfChords}/>
-      <ChordSelect chords={chords} setChords={setChords} numberOfChords={numberOfChords}/>
+      <ChordSelect keySig={keySig} chords={chords} setChords={setChords} numberOfChords={numberOfChords}/>
       <ComboSelect combos={combos} setCombos={setCombos}/>
       <ProgressionList/>
     </div>

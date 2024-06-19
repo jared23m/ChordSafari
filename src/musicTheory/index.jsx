@@ -11,6 +11,22 @@ export const keySigNames = ["Cmaj/Amin",
 "Bbmaj/Gmin",
 "Bmaj/G#min"];
 
+export const keySigIndex = [
+    ["Cmaj", "Dmin", 'Emin', 'Fmaj', 'Gmaj', 'Amin', 'Bdim'],
+    ['Dbmaj','Ebmin', 'Fmin', 'Gbmaj', 'Abmaj', "Bbmin", 'Cdim'],
+    ['Dmaj', 'Emin', 'F#min', 'Gmaj', 'Amaj', 'Bmin', 'C#dim'],
+    ['Ebmaj', 'Fmin', 'Gmin', 'Abmaj', 'Bbmaj', 'Cmin', 'Ddim'],
+    ['Emaj', 'F#min', 'G#min', 'Amaj', 'Bmaj', 'C#min', 'D#dim'],
+    ['Fmaj', 'Gmin', 'Amin', 'Bbmaj', 'Cmaj', 'Dmin', 'Edim'],
+    ['Gbmaj', 'Abmin', 'Bbmin', 'Cbmaj', 'Dbmaj', 'Ebmin', 'Fdim'],
+    ['Gmaj', 'Amin', 'Bmin', 'Cmaj', 'Dmaj', 'Emin', 'F#dim'],
+    ['Abmaj', 'Bbmin', 'Cmin', 'Dbmaj', 'Ebmaj', 'Fmin', 'Gdim'],
+    ['Amaj', 'Bmin', 'C#min', 'Dmaj', 'Emaj', 'F#min', 'G#dim'],
+    ['Bbmaj', 'Cmin', 'Dmin', 'Ebmaj', 'Fmaj', 'Gmin', 'Adim'],
+    ['Bmaj', 'C#min', 'D#min', 'Emaj', 'F#maj', 'G#min', 'A#dim'],
+    
+]
+
 export const chordRelativeRoots = [
     "I",
     "ii",
