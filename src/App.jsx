@@ -38,7 +38,7 @@ function App() {
        <KeyAndNumber keySig={keySig} setKeySig={setKeySig} numberOfChords={numberOfChords} setNumberOfChords={setNumberOfChords}/>
       <ChordSelect keySig={keySig} chords={chords} setChords={setChords} numberOfChords={numberOfChords}/>
       <ComboSelect combos={combos} setCombos={setCombos}/>
-      <ProgressionList/>
+      <ProgressionList keySig={keySig} chords={chords} numberOfChords={numberOfChords} combos={combos}/>
     </div>
   )
 }

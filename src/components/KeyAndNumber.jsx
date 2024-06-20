@@ -17,7 +17,7 @@ export default function KeyAndNumber(props){
             <label>
                 Number of Chords
                         <select className='numberOfChordsSelect' value={props.numberOfChords} onChange={(e) => {
-                            props.setNumberOfChords(e.target.value);
+                            props.setNumberOfChords(parseInt(e.target.value));
                             }}>
                             <option value={1}>{1}</option>
                             <option value={2}>{2}</option>
