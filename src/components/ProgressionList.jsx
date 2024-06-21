@@ -17,16 +17,37 @@ export default function ProgressionList(props){
             })
             return returnArr;
         } else {
-            let returnArrr = [];
+            let returnArr = [];
             const combos = getCombinations(arr, chordAmount - 1);
             arr.forEach((symbol)=>{
                 combos.forEach((combo)=>{
                     let newCombo = [symbol, ...combo];
-                    returnArrr.push(newCombo);
+                    returnArr.push(newCombo);
                 })
             })
-            return returnArrr;
+            return returnArr;
         }
+     }
+
+     function filterByMustInclude(combinations, chords){
+        let potentialMustIncludedChords = [];
+        const currentChords = chords;
+        chordRelativeRoots.forEach((symbol) =>{
+            if (currentChords[symbol].mustInclude){
+                potentialMustIncludedChords.push(symbol);
+            }
+        });
+        let returnArr = combinations;
+        potentialMustIncludedChords.forEach((symbol)=>{
+            returnArr = returnArr.filter((combination) =>{
+                const found = combination.find((comboSymbol)=>{
+                    return symbol == comboSymbol;
+                })
+                return found;
+            })
+        })
+
+        return returnArr;
      }
 
      useEffect(()=>{
@@ -40,7 +61,8 @@ export default function ProgressionList(props){
             }
         });
         const combinations = getCombinations(potentialIncludedChords, props.numberOfChords);
-        console.log(combinations);
+        const mustInclude = filterByMustInclude(combinations, currentChords);
+        console.log(mustInclude);
      }, [props.chords, props.numberOfChords, props.keySig, props.combos])
 
     return (
