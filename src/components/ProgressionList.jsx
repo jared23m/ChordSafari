@@ -7,26 +7,31 @@ export default function ProgressionList(props){
      const [everyCombination, setEveryCombination] = useState([]);
 
      function getCombinations(arr, chordAmount) {
-        let result = [];
-    
-        function helper(start, combo) {
-            if (combo.length === chordAmount) {
-                result.push([...combo]);
-                return;
-            }
-    
-            for (let i = start; i < arr.length; i++) {
-                combo.push(arr[i]);
-                helper(i, combo);
-                combo.pop();
-            }
+        if (chordAmount < 1){
+            console.log("ChordAmountError. Chord Amount is less than 1.");
+            return
+        } else if (chordAmount == 1) {
+            let returnArr = [];
+            arr.forEach((symbol)=>{
+                returnArr.push([symbol]);
+            })
+            return returnArr;
+        } else {
+            let returnArrr = [];
+            const combos = getCombinations(arr, chordAmount - 1);
+            arr.forEach((symbol)=>{
+                combos.forEach((combo)=>{
+                    let newCombo = [symbol, ...combo];
+                    returnArrr.push(newCombo);
+                })
+            })
+            return returnArrr;
         }
-    
-        helper(0, []);
-        return result;
-    }
+     }
 
      useEffect(()=>{
+        // creates initial combination bank, just taking into account which chords are checked
+        // 'include' and how many chords there should be
         let potentialIncludedChords = [];
         const currentChords = props.chords;
         chordRelativeRoots.forEach((symbol) =>{
