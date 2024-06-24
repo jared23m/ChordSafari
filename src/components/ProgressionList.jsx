@@ -69,6 +69,46 @@ export default function ProgressionList(props){
         return returnArr;
      }
 
+     function filterByProgCombo(combinations, progCombos){
+        const progComboKeys = Object.keys(progCombos);
+        const selectedProgCombos = progComboKeys.filter((key)=>{
+            return progCombos[key];
+        })
+        const splitProgCombos = selectedProgCombos.map((progCombo)=>{
+            return (progCombo.split(''));
+        })
+        let returnArr = [];
+
+        if (selectedProgCombos.length == 0){
+            return combinations;
+        } else {
+            const progComboFinalIndex = selectedProgCombos[0].length - 1;
+
+            splitProgCombos.forEach((progCombo) =>{
+                let newCombinations = combinations;
+                progCombo.forEach((slot, i) =>{
+                    const differenceUntilFinalIndex = progComboFinalIndex - i;
+                    for (let j = 1; j <= differenceUntilFinalIndex; j++){
+                        if (parseInt(slot) == parseInt(progCombo[i+j])){
+                            newCombinations = newCombinations.filter((progression)=>{
+                                return (progression[i] == progression[i+j])
+                            })
+                        } else {
+                            newCombinations = newCombinations.filter((progression)=>{
+                                return (progression[i] != progression[i+j])
+                            })
+                        }
+                    }
+                })
+
+                returnArr = [...newCombinations, ...returnArr];
+            })
+
+           return returnArr;
+        }
+
+     }
+
      useEffect(()=>{
         // creates initial combination bank, just taking into account which chords are checked
         // 'include' and how many chords there should be
@@ -82,7 +122,9 @@ export default function ProgressionList(props){
         const combinations = getCombinations(potentialIncludedChords, props.numberOfChords);
         const mustInclude = filterByMustInclude(combinations, currentChords);
         const position = filterByPosition(mustInclude, currentChords);
-        console.log(position);
+        const progCombo = filterByProgCombo(position, props.combos);
+        console.log('progCombo', progCombo);
+
      }, [props.chords, props.numberOfChords, props.keySig, props.combos])
 
     return (
