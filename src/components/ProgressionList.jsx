@@ -50,6 +50,25 @@ export default function ProgressionList(props){
         return returnArr;
      }
 
+     function filterByPosition(combinations, chords){
+        let potentialPositionChords = [];
+        const currentChords = chords;
+        chordRelativeRoots.forEach((symbol) =>{
+            if (currentChords[symbol].position > 0){
+                potentialPositionChords.push(symbol);
+            }
+        });
+        let returnArr = combinations;
+        potentialPositionChords.forEach((symbol)=>{
+            const positionNumber = currentChords[symbol].position - 1;
+            returnArr = returnArr.filter((combination) =>{
+                return (combination[positionNumber] == symbol);
+            })
+        })
+
+        return returnArr;
+     }
+
      useEffect(()=>{
         // creates initial combination bank, just taking into account which chords are checked
         // 'include' and how many chords there should be
@@ -62,7 +81,8 @@ export default function ProgressionList(props){
         });
         const combinations = getCombinations(potentialIncludedChords, props.numberOfChords);
         const mustInclude = filterByMustInclude(combinations, currentChords);
-        console.log(mustInclude);
+        const position = filterByPosition(mustInclude, currentChords);
+        console.log(position);
      }, [props.chords, props.numberOfChords, props.keySig, props.combos])
 
     return (
